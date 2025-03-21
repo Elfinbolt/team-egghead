@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Team Egghead</h1>
+            <nav>
+                <ul>
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#tech-tasks">Tech Tasks</a></li>
+                    <li><a href="#creative-tasks">Creative Tasks</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Welcome to Our Team Portfolio</h2>
+                <p>Showcasing our technical expertise and creative achievements</p>
+                <a href="#tech-tasks" class="btn">Explore Our Work</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="tech-tasks" class="section">
+        <div class="container">
+            <h2 class="section-title">Tech Tasks</h2>
+            
+            <div class="card">
+                <h3>Task 1</h3>
+                <pre><code class="language-javascript">
+                    #include <stdio.h>
+                        #include <stdlib.h>
+                        
+                        void printArray_char(char a[], int size) {
+                            printf("( ");
+                            for (int i = 0; i < size; i++) {
+                                printf("%c", a[i]);
+                                if (i < size - 1) printf(", ");
+                            }
+                            printf(" )\n");
+                        }
+                        
+                        void printArray_int(int a[], int size) {
+                            printf("( ");
+                            for (int i = 0; i < size; i++) {
+                                printf("%d", a[i]);
+                                if (i < size - 1) printf(", ");
+                            }
+                            printf(" )\n");
+                        }
+                        
+                        void visualizeStep(char a[], int low, int high) {
+                            printf("( ");
+                            for (int i = low; i <= high; i++) {
+                                printf("%c", a[i]);
+                                if (i < high) printf(", ");
+                            }
+                            printf(" )\n");
+                        }
+                        
+                        void visualizeStep_int(int a[], int low, int high) {
+                            printf("( ");
+                            for (int i = low; i <= high; i++) {
+                                printf("%d", a[i]);
+                                if (i < high) printf(", ");
+                            }
+                            printf(" )\n");
+                        }
+                        
+                        void merge_char(char a[], char t[], int low1, int high1, int low2, int high2) {
+                            int i = low1, j = low2, k = 0;
+                            while (i <= high1 && j <= high2) {
+                                if (a[i] <= a[j]) t[k++] = a[i++];
+                                else t[k++] = a[j++];
+                            }
+                            while (i <= high1) t[k++] = a[i++];
+                            while (j <= high2) t[k++] = a[j++];
+                        }
+                        
+                        void mergeSort_char(char a[], int low, int high) {
+                            if (low < high) {
+                                int mid = low + (high - low) / 2;
+                                char *temp = (char *)malloc((high - low + 1) * sizeof(char));
+                                visualizeStep(a, low, high);
+                                mergeSort_char(a, low, mid);
+                                mergeSort_char(a, mid + 1, high);
+                                merge_char(a, temp, low, mid, mid + 1, high);
+                                for (int i = low, k = 0; i <= high; i++) a[i] = temp[k++];
+                                free(temp);
+                            }
+                        }
+                        
+                        void merge_int(int a[], int t[], int low1, int high1, int low2, int high2) {
+                            int i = low1, j = low2, k = 0;
+                            while (i <= high1 && j <= high2) {
+                                if (a[i] >= a[j]) t[k++] = a[i++];
+                                else t[k++] = a[j++];
+                            }
+                            while (i <= high1) t[k++] = a[i++];
+                            while (j <= high2) t[k++] = a[j++];
+                        }
+                        
+                        void mergeSort_int(int a[], int low, int high) {
+                            if (low < high) {
+                                int mid = low + (high - low) / 2;
+                                int *temp = (int *)malloc((high - low + 1) * sizeof(int));
+                                visualizeStep_int(a, low, high);
+                                mergeSort_int(a, low, mid);
+                                mergeSort_int(a, mid + 1, high);
+                                merge_int(a, temp, low, mid, mid + 1, high);
+                                for (int i = low, k = 0; i <= high; i++) a[i] = temp[k++];
+                                free(temp);
+                            }
+                        }
+                        
+                        int main() {
+                            int choice, n;
+                            do {
+                                printf("\nMenu:\n");
+                                printf("1. Character Merge Sort (Ascending)\n");
+                                printf("2. Integer Merge Sort (Descending)\n");
+                                printf("3. Exit\n");
+                                printf("Enter your choice: ");
+                                scanf("%d", &choice);
+                        
+                                if (choice == 1) {
+                                    printf("Enter number of characters: ");
+                                    scanf("%d", &n);
+                                    char *a_char = (char *)malloc(n * sizeof(char));
+                                    printf("Enter characters: ");
+                                    for (int i = 0; i < n; i++) scanf(" %c", &a_char[i]);
+                                    printf("Array before sorting: ");
+                                    printArray_char(a_char, n);
+                                    mergeSort_char(a_char, 0, n - 1);
+                                    printf("Array after sorting: ");
+                                    printArray_char(a_char, n);
+                                    free(a_char);
+                                }
+                                else if (choice == 2) {
+                                    printf("Enter number of integers: ");
+                                    scanf("%d", &n);
+                                    int *a_int = (int *)malloc(n * sizeof(int));
+                                    printf("Enter integers: ");
+                                    for (int i = 0; i < n; i++) scanf("%d", &a_int[i]);
+                                    printf("Array before sorting: ");
+                                    printArray_int(a_int, n);
+                                    mergeSort_int(a_int, 0, n - 1);
+                                    printf("Array after sorting: ");
+                                    printArray_int(a_int, n);
+                                    free(a_int);
+                                }
+                            } while (choice != 3);
+                            return 0;
+                        }
+                </code></pre>
+            </div>
+            <div class="outputs">
+                <code>
+                    Menu:
+                    1. Character Merge Sort (Ascending)
+                    2. Integer Merge Sort (Descending)
+                    3. Exit
+                    Enter your choice: 1
+                    Enter number of characters: 5
+                    Enter characters: h
+                    s
+                    e
+                    v
+                    a
+                    Array before sorting: ( h, s, e, v, a )
+                    ( h, s, e, v, a )
+                    ( h, s, e )
+                    ( h, s )
+                    ( v, a )
+                    Array after sorting: ( a, e, h, s, v )
+                    
+                    Menu:
+                    1. Character Merge Sort (Ascending)
+                    2. Integer Merge Sort (Descending)
+                    3. Exit
+                    Enter your choice: 2
+                    Enter number of integers: 6
+                    Enter integers: 5
+                    32
+                    67
+                    3
+                    1
+                    4
+                    Array before sorting: ( 5, 32, 67, 3, 1, 4 )
+                    ( 5, 32, 67, 3, 1, 4 )
+                    ( 5, 32, 67 )
+                    ( 5, 32 )
+                    ( 3, 1, 4 )
+                    ( 3, 1 )
+                    Array after sorting: ( 67, 32, 5, 4, 3, 1 )
+                    
+                    Menu:
+                    1. Character Merge Sort (Ascending)
+                    2. Integer Merge Sort (Descending)
+                    3. Exit
+                    Enter your choice: 3
+                </code>
+                
+                
+            </div>
+            <div class="card">
+                <h3>Task 2</h3>
+                <pre><code class="language-python">
+                    import pandas as pd
+import matplotlib.pyplot as plt
+
+# Read dataset
+data = pd.read_csv('Viral_Social_Media_Trends.csv')
+
+# Print column names to debug
+print("Columns in CSV:", data.columns.tolist())
+
+# Strip spaces from column names
+data.columns = data.columns.str.strip()
+
+# Check actual column names
+expected_columns = ['platform', 'engagement_level']
+for col in expected_columns:
+    if col not in data.columns:
+        print(f"⚠️ Column '{col}' not found. Check the CSV headers!")
+
+# If 'platform' isn't found, look for similar column names
+print("Dataset Preview:\n", data.head())
+
+# Ensure correct column names
+platform_col = 'platform' if 'platform' in data.columns else input("Enter correct column name for Platform: ")
+engagement_col = 'engagement_level' if 'engagement_level' in data.columns else input(
+    "Enter correct column name for Engagement Level: ")
+
+# Group data
+total_posts = data.groupby(platform_col).size()
+high_posts = data[data[engagement_col] == 'High'].groupby(platform_col).size()
+high_pct = (high_posts / total_posts * 100).sort_values(ascending=False)
+
+# Display results
+print("\nPercentage of High-Engagement Posts Per Platform:\n", high_pct)
+
+# Generate Bar Chart
+engagement_counts = data.groupby([platform_col, engagement_col]).size().unstack(fill_value=0)
+engagement_pct = engagement_counts.div(engagement_counts.sum(axis=1), axis=0) * 100
+engagement_pct.plot(kind='bar', figsize=(10, 6))
+
+plt.title('Engagement Level Distribution per Platform')
+plt.xlabel('Platform')
+plt.ylabel('Percentage (%)')
+plt.legend(title='Engagement Level')
+plt.show()
+
+                </code></pre>
+            </div>
+            <div class="outputs">
+                <code>
+                    D:\csrc\py\pythonProject\.venv\Scripts\python.exe D:\csrc\py\pythonProject\TASK2.py 
+Columns in CSV: ['Post_ID', 'Platform', 'Hashtag', 'Content_Type', 'Region', 'Views', 'Likes', 'Shares', 'Comments', 'Engagement_Level']
+⚠️ Column 'platform' not found. Check the CSV headers!
+⚠️ Column 'engagement_level' not found. Check the CSV headers!
+Dataset Preview:
+   Post_ID   Platform     Hashtag  ... Shares Comments  Engagement_Level
+0  Post_1     TikTok  #Challenge  ...  53135    19346              High
+1  Post_2  Instagram  #Education  ...  65860    27239            Medium
+2  Post_3    Twitter  #Challenge  ...  39423    36223            Medium
+3  Post_4    YouTube  #Education  ...  11687    36806               Low
+4  Post_5     TikTok      #Dance  ...  69581     6376            Medium
+
+[5 rows x 10 columns]
+Enter correct column name for Platform: tiktok
+Enter correct column name for Engagement Level: low
+Traceback (most recent call last):
+  File "D:\csrc\py\pythonProject\TASK2.py", line 28, in <module>
+    total_posts = data.groupby(platform_col).size()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\csrc\py\pythonProject\.venv\Lib\site-packages\pandas\core\frame.py", line 9183, in groupby
+    return DataFrameGroupBy(
+           ^^^^^^^^^^^^^^^^^
+  File "D:\csrc\py\pythonProject\.venv\Lib\site-packages\pandas\core\groupby\groupby.py", line 1329, in __init__
+    grouper, exclusions, obj = get_grouper(
+                               ^^^^^^^^^^^^
+  File "D:\csrc\py\pythonProject\.venv\Lib\site-packages\pandas\core\groupby\grouper.py", line 1043, in get_grouper
+    raise KeyError(gpr)
+KeyError: 'tiktok'
+                </code>
+                
+                
+            </div>
+        </div>
+    </section>
+
+    <section id="creative-tasks" class="section">
+        <div class="container">
+            <h2 class="section-title">Creative Tasks</h2>
+            
+            <div class="card">
+                <h3>Poetry</h3>
+                <div class="poem">
+                    <h4>Ghosts of the Game</h4>
+                    <p>
+                        Ghosts of the Game
+They walk the halls, unseen yet near,<br>
+The ones who fell to pain and fear.<br>
+Their whispers drift through empty space,<br>
+Lost souls who failed the deadly race.<br>
+
+Desperation wrote their fate,<br>
+Their choices sealed by hunger’s weight.<br>
+For coins they played, for life they lied,<br>
+And in the end, for greed, they died.<br>
+
+Now shadows haunt the bloodstained floors,<br>
+Lingering behind locked doors.<br>
+A price too steep, a cost too high,<br>
+Yet still, the desperate came to try.<br>
+
+The living play, the ghosts remain,<br>
+Bound forever to the game.<br>
+For every choice, a soul is lost,<br>
+And wealth is won at death’s own cost.<br>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>AI-Generated Images</h3>
+                <div class="gallery">
+                    <div class="gallery-item">
+                        <img src="sg_van_goh.webp" alt="AI-generated artwork 1">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>AI-Generated Music</h3>
+                <div class="audio-player">
+                    <div class="track">
+                        <h4>Squid games inspired track</h4>
+                        <audio controls>
+                            <source src="SG_poem_track.mp3" type="audio/mpeg">
+                            
+                        </audio>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="card">
+                <h3>Email Template for Recruiter</h3>
+                <div class="email-template">
+                    <pre>
+Subject: Team Portfolio Submission for Evaluation
+
+Dear [Recruiter's Name],
+
+I hope this email finds you well. I am writing to submit our team's portfolio website for your review and consideration for the next round of the selection process.
+
+Our portfolio showcases all the work we have completed so far, including:
+
+- Technical tasks: Code implementations and data visualizations
+- Creative tasks: Original poetry, AI-generated images, and AI-generated music
+
+You can access our portfolio at: [Insert Website URL Here]
+
+We would greatly appreciate your evaluation of our work and look forward to the possibility of advancing to the next round.
+
+Thank you for your time and consideration.
+
+Best regards,
+[Your Team Name]
+[Contact Information]
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Team Portfolio. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
